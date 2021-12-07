@@ -271,7 +271,7 @@ var app = function () {
     document.body.appendChild(renderer.domElement);
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("click", onMouseClick, false);
-    document.addEventListener("mousemove", onMouseMove, false);
+//     document.addEventListener("mousemove", onMouseMove, false);
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
   };
