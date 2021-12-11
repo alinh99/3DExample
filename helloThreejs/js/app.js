@@ -108,18 +108,41 @@ var app = function () {
   //     console.log("An error happened in loading robot model: " + err);
   //   }
   // );
+  var objLoaders = new THREE.OBJLoader();
+  objLoaders.load(
+    // url
+    "./data/models/72-helecopter/helecopter/chopper.obj",
+    // on load callback
+    function (object) {
+      object.position.y = -1;
+      object.position.z = -8;
+      object.position.x = 0;
+      // object.scale.set(0.08, 0.08, 0.08);
+      scene.add(object);
+    },
+    // onProgress callback
+    function (xhr) {
+      console.log(
+        "The robot model is " + (xhr.loaded / xhr.total) * 100 + "% loaded"
+      );
+    },
+    // onError callback
+    function (err) {
+      console.log("An error happened in loading robot model: " + err);
+    }
+  );
   // var gltfLoaders = new THREE.GLTFLoader();
   // gltfLoaders.load(
   //   // url
-  //   "./data/models/lieutenantHead/lieutenantHead.gltf",
+  //   "./data/models/72-helecopter/adamHead.gltf",
   //   // on load callback
   //   function (object) {
   //     car = object.scene.children[0];
-  //     car.scale.setScalar(3);
+  //     car.scale.setScalar(1);
   //     scene.add(car);
-  //     car.position.y = 10;
-  //     car.position.x = +20;
-  //     car.position.z = -30;
+  //     car.position.y = 0;
+  //     car.position.x = 0;
+  //     car.position.z = 0;
   //   },
   //   // onProgress callback
   //   function (xhr) {
@@ -130,6 +153,26 @@ var app = function () {
   //   // onError callback
   //   function (err) {
   //     console.log("An error happened in loading car model: " + err);
+  //   }
+  // );
+  // var fbxLoaders = new THREE.FBXLoader();
+  // fbxLoaders.load(
+  //   "./data/models/uh-60-blackhawk-us-military-helicopter/source/model.fbx",
+  //   function (object) {
+  //     hel = object.scene.children[0];
+  //     hel.scale.setScalar(3);
+  //     scene.add(hel);
+  //     hel.position.y = 10;
+  //     hel.position.x = +20;
+  //     hel.position.y = -30;
+  //   },
+  //   function (xhr) {
+  //     console.log(
+  //       "The helicopter model is " + (xhr.loaded / xhr.total) * 100 + "% loaded"
+  //     );
+  //   },
+  //   function (err) {
+  //     console.log("An error happened in loading helicopter model: " + err);
   //   }
   // );
   // initiallize scene, camera, objects and renderer
@@ -262,16 +305,16 @@ var app = function () {
     // cube1.position.x = 3;
     // cube2.position.x = -3;
     // cube3.position.x = 3;
-    crate = create_crate();
+    // crate = create_crate();
     create_skybox();
-    create_envShere();
+    // create_envShere();
     // 4. create the renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvasWidth, canvasHeight);
     document.body.appendChild(renderer.domElement);
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("click", onMouseClick, false);
-//     document.addEventListener("mousemove", onMouseMove, false);
+    document.addEventListener("mousemove", onMouseMove, false);
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2();
   };
@@ -301,21 +344,31 @@ var app = function () {
       }
     }
   };
-  // var onMouseMove = function (e) {
-  //   const mouse = new THREE.Vector2();
-  //   const raycaster = new THREE.Raycaster();
-  //   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-  //   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-  //   raycaster.setFromCamera(mouse, camera);
-  //   raycaster.ray.intersectPlane(crate, pointOfIntersection);
-  // };
+  var onMouseMove = function (e) {
+    const mouse = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    for (let i = 0; i < intersects.length; i++) {
+      console.log("Name of the object is " + intersects[i].object.name);
+      if (intersects[i].object.name == "donut") {
+        intersects[i].object.rotation.x += Math.PI / 2;
+        // update_donut(
+        //   intersects[i].object.name,
+        //   intersects[i].object.position.x
+        // );
+      }
+    }
+  };
   // main animation loop - calls every 50-60 ms.
   var mainLoop = function () {
     let rand = Math.random();
-    if (rand < 0.02) {
-      create_donuts();
-    }
-    crate.rotation.y += 0.05;
+    // if (rand < 0.02) {
+    //   create_donuts();
+    // }
+    // crate.rotation.y += 0.05;
     // donuts.forEach()
     requestAnimationFrame(mainLoop);
     cube1.rotation.x += 0.01;

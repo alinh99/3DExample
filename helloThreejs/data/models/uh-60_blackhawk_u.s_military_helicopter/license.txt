@@ -1,0 +1,11 @@
+Model Information:
+* title:	UH-60 blackhawk U.S military helicopter
+* source:	https://sketchfab.com/3d-models/uh-60-blackhawk-us-military-helicopter-c3959cd47c084080aec8182cd2b9901a
+* author:	Junaid_shakoor (https://sketchfab.com/Junaid_shakoor)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "UH-60 blackhawk U.S military helicopter" (https://sketchfab.com/3d-models/uh-60-blackhawk-us-military-helicopter-c3959cd47c084080aec8182cd2b9901a) by Junaid_shakoor (https://sketchfab.com/Junaid_shakoor) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
