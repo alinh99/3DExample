@@ -1,9 +1,9 @@
-import { FBXLoader } from "./lib/three.js/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "./lib/three.js/examples/jsm/loaders/GLTFLoader.js";
 
 export class Utils {
   async load3DModel(path) {
     return new Promise(function (resolve, reject) {
-      const loaders = new FBXLoader();
+      const loaders = new GLTFLoader();
       loaders.load(
         path,
         (object) => {
@@ -11,11 +11,11 @@ export class Utils {
         },
         (xhr) => {
           console.log(
-            "The car model is " + (xhr.loaded / xhr.total) * 100 + "% loaded"
+            "The helicopter model is " + (xhr.loaded / xhr.total) * 100 + "% loaded"
           );
         },
         (err) => {
-          console.log("An error happened in loading car model: " + err);
+          console.log("An error happened in loading helicopter model: " + err);
         }
       );
     });

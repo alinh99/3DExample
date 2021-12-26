@@ -19,6 +19,11 @@ export const GameSystem = {
       path: "/src/model/zombie/zombie.fbx",
       animations: ["/src/model/zombie/animation/hiphop.fbx"],
     },
+    helicopter: {
+      name: "helicopter",
+      path: "/src/model/helicopter/AgustaDaVinCi (2).gltf",
+      animations: ["/src/model/helicopter/animation/rotate.gltf"]
+    }
   },
   position: {
     1: [1],

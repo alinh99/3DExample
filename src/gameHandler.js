@@ -1,6 +1,6 @@
 import { GameSystem } from "./gameSystem.js";
 import * as THREE from "./lib/three.js/build/three.module.js";
-import { FBXLoader } from "./lib/three.js/examples/jsm/loaders/FBXLoader.js";
+import { GLTFLoader } from "./lib/three.js/examples/jsm/loaders/GLTFLoader.js";
 import { Scene } from "./scene.js";
 import { Utils } from "./utils.js";
 
@@ -39,7 +39,7 @@ export class GameHandler {
 
   animationHandler(path) {
     return new Promise((resolve, reject) => {
-      let anim = new FBXLoader();
+      let anim = new GLTFLoader();
       anim.load(path, (a) => {
         resolve(a.animations[0]);
       });
@@ -64,7 +64,7 @@ export class GameHandler {
 
   loadAnimation(character) {
     return new Promise(async (resolve) => {
-      let anim = new FBXLoader();
+      let anim = new GLTFLoader();
       const animations = GameSystem.characters[character].animations;
       const animationHandlerPromiseList = animations.map((path) =>
         this.animationHandler(path)
