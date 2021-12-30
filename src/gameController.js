@@ -39,13 +39,13 @@ export class GameController {
     }
     this.start = true;
     await this.loadgameHandler();
-    await this.gameHandler.standAnimation("helicopter");
-    this.sound = this.utils.loadSound();
-    this.sound.play();
-    this.startGamePlay();
-    this.sound.on("end", () => {
-      this.stopGame();
-    });
+    // await this.gameHandler.standAnimation("helicopter");
+    // this.sound = this.utils.loadSound();
+    // this.sound.play();
+    // this.startGamePlay();
+    // this.sound.on("end", () => {
+    //   this.stopGame();
+    // });
   }
 
   stopGame() {
@@ -70,7 +70,7 @@ export class GameController {
         this.timeUp = true;
         this.playAnwser = [];
         if (!this.pressSpace) {
-          this.gameHandler.standAnimation("helicopter");
+          // this.gameHandler.standAnimation("helicopter");
           this.ui.showResult(this.status);
         }
       }, 3000);
@@ -92,7 +92,8 @@ export class GameController {
       this.ui.showResult(this.status);
       this.ui.miss(this.playAnwser.length - 1);
       this.combo = 0;
-      return this.gameHandler.standAnimation("helicopter");
+      return;
+      // return this.gameHandler.standAnimation("helicopter");
     }
 
     if (
@@ -106,7 +107,8 @@ export class GameController {
       this.playAnwser = [];
       this.ui.showResult(this.status);
       this.combo = 0;
-      return this.gameHandler.standAnimation("helicopter");
+      return;
+      // return this.gameHandler.standAnimation("helicopter");
     }
 
     return this.ui.showChallengeColor(this.playAnwser.length - 1, 1);
@@ -120,7 +122,8 @@ export class GameController {
       this.playAnwser = [];
       this.ui.showResult(this.status);
       this.combo = 0;
-      return this.gameHandler.standAnimation("helicopter");
+      // return this.gameHandler.standAnimation("helicopter");
+      return;
     }
     this.status = false;
     this.timeUp = true;
@@ -144,13 +147,14 @@ export class GameController {
         ? GameSystem.point / 10
         : Math.floor(GameSystem.point / target);
     point = point > GameSystem.point ? GameSystem.point : point;
-    
+
     this.increasePoint(this.point, this.point + point);
     this.point += point;
 
     this.ui.showResult(this.status, this.combo);
     this.combo > 2 && this.gameHandler.moveCamera();
-    return this.gameHandler.playAnimation("helicopter");
+    // return this.gameHandler.playAnimation("helicopter");
+    return;
   }
 
   listenKeyBoard() {

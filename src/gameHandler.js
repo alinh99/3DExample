@@ -16,35 +16,41 @@ export class GameHandler {
   handlerModel(data) {
     return new Promise((resolve, reject) => {
       this.utils.load3DModel(data.path).then((model) => {
-        model.scale.setScalar(1);
-        model.traverse((child) => {
-          if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-        model.name = data.name;
-        this.mainScene.objects.push({
-          model,
-          mixer: new THREE.AnimationMixer(model),
-          name: data.name,
-          animations: [],
-          stand: null,
-          idle: null,
-        });
-        this.loadAnimation(data.name).then((_) => resolve(model));
+        console.log(model);
+        let helicopter = model.scene.children[0];
+        helicopter.scale.setScalar(100);
+        helicopter.position.y = 0;
+        helicopter.position.x = 0;
+        helicopter.position.z = 0;
+        resolve(helicopter);
+        // model.traverse((child) => {
+        //   if (child.isMesh) {
+        //     child.castShadow = true;
+        //     child.receiveShadow = true;
+        //   }
+        // });
+        // model.name = data.name;
+        // this.mainScene.objects.push({
+        //   model,
+        //   mixer: new THREE.AnimationMixer(model),
+        //   name: data.name,
+        //   animations: [],
+        //   stand: null,
+        //   idle: null,
+        // });
+        // this.loadAnimation(data.name).then((_) => resolve(model));
       });
     });
   }
 
-  animationHandler(path) {
-    return new Promise((resolve, reject) => {
-      let anim = new GLTFLoader();
-      anim.load(path, (a) => {
-        resolve(a.animations[0]);
-      });
-    });
-  }
+  // animationHandler(path) {
+  //   return new Promise((resolve, reject) => {
+  //     let anim = new GLTFLoader();
+  //     anim.load(path, (a) => {
+  //       resolve(a.animations[0]);
+  //     });
+  //   });
+  // }
 
   async loadModel(characters) {
     let numberCharacters = characters.length;
@@ -57,64 +63,65 @@ export class GameHandler {
 
     const modelHandler = await Promise.all(modelHandlerPromiseList);
     modelHandler.map((model, index) => {
-      model.position.setX(positions[index]);
+      // model.position.setX(positions[index]);
+      console.log(model);
       this.mainScene.scene.add(model);
     });
   }
 
-  loadAnimation(character) {
-    return new Promise(async (resolve) => {
-      let anim = new GLTFLoader();
-      const animations = GameSystem.characters[character].animations;
-      const animationHandlerPromiseList = animations.map((path) =>
-        this.animationHandler(path)
-      );
-      const animationHandler = await Promise.all(animationHandlerPromiseList);
-      let index = this.mainScene.objects.findIndex((o) => o.name === character);
-      this.mainScene.objects[index].animations = animationHandler;
-      resolve(true);
-    });
-  }
+  // loadAnimation(character) {
+  //   return new Promise(async (resolve) => {
+  //     let anim = new GLTFLoader();
+  //     const animations = GameSystem.characters[character].animations;
+  //     const animationHandlerPromiseList = animations.map((path) =>
+  //       this.animationHandler(path)
+  //     );
+  //     const animationHandler = await Promise.all(animationHandlerPromiseList);
+  //     let index = this.mainScene.objects.findIndex((o) => o.name === character);
+  //     this.mainScene.objects[index].animations = animationHandler;
+  //     resolve(true);
+  //   });
+  // }
 
-  playAnimation(character) {
-    const index = this.mainScene.objects.findIndex((o) => o.name === character);
-    if (!this.mainScene.isFirstDance) {
-      const step = Date.now() - this.mainScene.startAnim;
-      if (step < this.mainScene.duration) return;
-    }
+  // playAnimation(character) {
+  //   const index = this.mainScene.objects.findIndex((o) => o.name === character);
+  //   if (!this.mainScene.isFirstDance) {
+  //     const step = Date.now() - this.mainScene.startAnim;
+  //     if (step < this.mainScene.duration) return;
+  //   }
 
-    return new Promise((resolve, reject) => {
-      this.mainScene.objects[index].mixer.stopAllAction();
-      const { animations } = this.mainScene.objects[index];
-      this.mainScene.objects[index].idle = this.mainScene.objects[
-        index
-      ].mixer.clipAction(
-        animations[this.utils.randomNumber(1, animations.length)]
-      );
-      this.mainScene.startAnim = Date.now();
-      this.mainScene.objects[index].idle.play();
-      this.mainScene.duration =
-        +this.mainScene.objects[index].idle._clip.duration * 1000;
-      this.mainScene.isFirstDance = false;
-      resolve(true);
-    });
-  }
+  //   return new Promise((resolve, reject) => {
+  //     this.mainScene.objects[index].mixer.stopAllAction();
+  //     const { animations } = this.mainScene.objects[index];
+  //     this.mainScene.objects[index].idle = this.mainScene.objects[
+  //       index
+  //     ].mixer.clipAction(
+  //       animations[this.utils.randomNumber(1, animations.length)]
+  //     );
+  //     this.mainScene.startAnim = Date.now();
+  //     this.mainScene.objects[index].idle.play();
+  //     this.mainScene.duration =
+  //       +this.mainScene.objects[index].idle._clip.duration * 1000;
+  //     this.mainScene.isFirstDance = false;
+  //     resolve(true);
+  //   });
+  // }
 
-  standAnimation(character) {
-    return new Promise((resolve, reject) => {
-      const index = this.mainScene.objects.findIndex(
-        (o) => o.name === character
-      );
-      this.mainScene.objects[index].mixer.stopAllAction();
-      const { animations } = this.mainScene.objects[index];
-      this.mainScene.objects[index].idle = this.mainScene.objects[
-        index
-      ].mixer.clipAction(animations[0]);
-      this.mainScene.objects[index].idle.play();
-      this.mainScene.isFirstDance = true;
-      resolve(true);
-    });
-  }
+  // standAnimation(character) {
+  //   return new Promise((resolve, reject) => {
+  //     const index = this.mainScene.objects.findIndex(
+  //       (o) => o.name === character
+  //     );
+  //     this.mainScene.objects[index].mixer.stopAllAction();
+  //     const { animations } = this.mainScene.objects[index];
+  //     this.mainScene.objects[index].idle = this.mainScene.objects[
+  //       index
+  //     ].mixer.clipAction(animations[0]);
+  //     this.mainScene.objects[index].idle.play();
+  //     this.mainScene.isFirstDance = true;
+  //     resolve(true);
+  //   });
+  // }
 
   moveCamera() {
     let randomDirection = Math.floor(Math.random() * 2);

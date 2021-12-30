@@ -21,9 +21,9 @@ export const GameSystem = {
     },
     helicopter: {
       name: "helicopter",
-      path: "/src/model/helicopter/AgustaDaVinCi (2).gltf",
-      animations: ["/src/model/helicopter/animation/rotate.gltf"]
-    }
+      path: "/src/model/helicopter/new_helicopter.gltf",
+      // animations: ["/src/model/helicopter/animation/rotate.gltf"]
+    },
   },
   position: {
     1: [1],

@@ -1,9 +1,12 @@
 import { GLTFLoader } from "./lib/three.js/examples/jsm/loaders/GLTFLoader.js";
-
+import { DRACOLoader } from "./lib/three.js/examples/jsm/loaders/DracoLoader.js";
 export class Utils {
   async load3DModel(path) {
     return new Promise(function (resolve, reject) {
       const loaders = new GLTFLoader();
+      // const dracoLoader = new DRACOLoader();
+      // dracoLoader.setDecoderPath("/examples/js/libs/draco/");
+      // loaders.setDRACOLoader(dracoLoader);
       loaders.load(
         path,
         (object) => {
@@ -11,11 +14,14 @@ export class Utils {
         },
         (xhr) => {
           console.log(
-            "The helicopter model is " + (xhr.loaded / xhr.total) * 100 + "% loaded"
+            "The helicopter model is " +
+              (xhr.loaded / xhr.total) * 100 +
+              "% loaded"
           );
         },
         (err) => {
           console.log("An error happened in loading helicopter model: " + err);
+          console.log(path);
         }
       );
     });

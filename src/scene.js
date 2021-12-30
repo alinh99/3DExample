@@ -25,7 +25,7 @@ export class Scene {
     this.createScene();
     this.createCamera();
     this.createLight();
-    this.createGround();
+    // this.createGround();
     this.createRenderer();
     this.createOrbitControl();
   }
