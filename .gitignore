@@ -1,15 +1,27 @@
-/src/lib/three.js/test
-/src/lib/three.js/.github
-/src/lib/three.js/docs
-/src/lib/three.js/editor
-/src/lib/three.js/files
-/src/lib/three.js/examples/*.html
-/src/lib/three.js/examples/screenshots
-/src/lib/three.js/examples/sounds
-/src/lib/three.js/examples/textures
-/src/lib/three.js/examples/nodes
-/src/lib/three.js/examples/*.json
-/src/lib/three.js/examples/*.css
-/src/lib/three.js/examples/models
-/src/lib/three.js/examples/fonts
-/src/lib/three.js/examples/files
+.DS_Store
+*.swp
+.project
+.idea/
+.vscode/
+npm-debug.log
+.jshintrc
+.vs/
+
+# The command'npm install --prefix test' adds files in the test folder (https://docs.npmjs.com/configuring-npm/folders.html#executables).
+# There are 2 kinds of files, those without extension and those with cmd extension.
+# To ignore files without a extension, following procedure is nessecary:
+# - ignore all files in the test folder
+# - unignore all files in subdirectories of the test folder
+# - unignore all files with an extension in the test folder
+test/*
+!test/*/
+!test/*.*
+test/*.cmd
+test/unit/build
+test/treeshake/index.bundle.js
+test/treeshake/index.bundle.min.js
+test/treeshake/index-src.bundle.min.js
+test/treeshake/stats.html
+
+
+**/node_modules

@@ -1,0 +1,8 @@
+startFadeIn=18:30
+endFadeIn=21:00
+startFadeOut=4:20
+endFadeOut=6:20
+blend=add
+rotate=true
+axis=1.5 -0.5 0.3
+source=./b/planet_small.png
