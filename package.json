@@ -86,7 +86,7 @@
     "test-treeshake": "rollup -c test/rollup.treeshake.config.js",
     "make-screenshot": "node test/e2e/puppeteer.js --make",
     "prepublishOnly": "node utils/prepublish.js",
-    "deploy": "gh-pages -d plane_game",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
