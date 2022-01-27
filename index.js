@@ -6,6 +6,8 @@ import { EXRLoader } from "./js/EXRLoader.js";
 import { PointerLockControls } from "./js/PointerLockControls.js";
 let camera, scene, renderer, clock, controls, lock_controls;
 init();
+
+animate();
 function init() {
   //initialize the manager to handle all loaded events (currently just works for OBJ and image files)
   const loadingManager = new THREE.LoadingManager(() => {
@@ -215,8 +217,6 @@ function init() {
   const sound = new THREE.Audio(listener);
 
   // load a sound and set it as the Audio object's buffer
-
-  animate();
 }
 
 function onWindowResize() {
