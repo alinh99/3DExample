@@ -7,6 +7,14 @@ import { PointerLockControls } from "./js/PointerLockControls.js";
 let camera, scene, renderer, clock, controls, lock_controls;
 init();
 function init() {
+  //initialize the manager to handle all loaded events (currently just works for OBJ and image files)
+  const loadingManager = new THREE.LoadingManager(() => {
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.classList.add("fade-out");
+
+    // optional: remove loader from DOM via event listener
+    loadingScreen.addEventListener("transitionend", onTransitionEnd);
+  });
   scene = new THREE.Scene();
   let audioLoader = new THREE.AudioLoader();
   audioLoader.load("./sounds/game_plane.mp4", function (buffer) {
@@ -43,7 +51,7 @@ function init() {
     instructions.style.display = "";
     sound.stop();
   });
-  new EXRLoader()
+  new EXRLoader(loadingManager)
     .setPath("./textures/")
     .load("new_home.exr", function (texture) {
       texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -54,7 +62,7 @@ function init() {
 
   // model
 
-  let plane = new GLTFLoader().setPath("models/Helicopter/");
+  let plane = new GLTFLoader(loadingManager).setPath("models/Helicopter/");
 
   plane.load("F-106A.gltf", function (gltf) {
     plane = gltf.scene;
@@ -132,7 +140,7 @@ function init() {
 
   document.addEventListener("keydown", onKeyDown);
 
-  let airport = new GLTFLoader().setPath("./models/airport/");
+  let airport = new GLTFLoader(loadingManager).setPath("./models/airport/");
 
   airport.load("scene.gltf", function (gltf) {
     airport = gltf.scene;
@@ -144,14 +152,14 @@ function init() {
     render();
   });
 
-  let map_1 = new GLTFLoader().setPath("./models/trailer/");
+  let map_1 = new GLTFLoader(loadingManager).setPath("./models/trailer/");
   map_1.load("scene.gltf", function (gltf) {
     map_1 = gltf.scene;
     scene.add(map_1);
     render();
   });
 
-  let map_2 = new GLTFLoader().setPath("./models/station_b/");
+  let map_2 = new GLTFLoader(loadingManager).setPath("./models/station_b/");
   map_2.load("scene.gltf", function (gltf) {
     map_2 = gltf.scene;
     scene.add(map_2);
@@ -160,7 +168,7 @@ function init() {
     render();
   });
 
-  let map_3 = new GLTFLoader().setPath(
+  let map_3 = new GLTFLoader(loadingManager).setPath(
     "./models/stylised_sky_player_home_dioroma/"
   );
   map_3.load("scene.gltf", function (gltf) {
@@ -172,7 +180,9 @@ function init() {
     render();
   });
 
-  let map_4 = new GLTFLoader().setPath("./models/stylized_hand_painted_scene/");
+  let map_4 = new GLTFLoader(loadingManager).setPath(
+    "./models/stylized_hand_painted_scene/"
+  );
   map_4.load("scene.gltf", function (gltf) {
     map_4 = gltf.scene;
     scene.add(map_4);
@@ -222,6 +232,11 @@ function onWindowResize() {
 
 function render() {
   renderer.render(scene, camera);
+}
+
+function onTransitionEnd(event) {
+  const element = event.target;
+  element.remove();
 }
 
 function animate() {
