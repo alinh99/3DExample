@@ -77,7 +77,7 @@ function init() {
 
     render();
   });
-  var delta = 200;
+
   const onKeyDown = function (event) {
     switch (event.code) {
       case "ArrowUp":
