@@ -8,20 +8,49 @@
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
     <link type="text/css" rel="stylesheet" href="./css/main.css" />
+    <style>
+      #blocker {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      #instructions {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
-    <div id="info">
-      <p>
-        Move: WASD<br />
-        Rotation: R-Right, E-Left<br />
-        Fly up: F <br />
-        Fly down: V <br />
-      </p>
+    <div id="blocker">
+      <div id="instructions">
+        <p style="font-size: 36px">Click to play</p>
+        <p>
+          Move forward: W<br />
+          Move downward: S <br />
+          Move left: L<br />
+          Move Right: R <br />
+          Rotate to the Right: R<br />
+          Rotate to the Left: L<br />
+          Fly up: F <br />
+          Fly down: V <br />
+        </p>
+      </div>
     </div>
-    <div id="overlay">
+    <!-- <div id="overlay">
       <button id="startButton">Play</button>
-    </div>
+    </div> -->
 
     <script type="module" src="index.js"></script>
   </body>

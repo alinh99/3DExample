@@ -3,16 +3,17 @@ import * as THREE from "./js/three.module.js";
 import { OrbitControls } from "./js/OrbitControls.js";
 import { GLTFLoader } from "./js/GLTFLoader.js";
 import { EXRLoader } from "./js/EXRLoader.js";
-
-let camera, scene, renderer, clock, controls;
-let mixer;
-
-const startButton = document.getElementById("startButton");
-startButton.addEventListener("click", init);
+import { PointerLockControls } from "./js/PointerLockControls.js";
+let camera, scene, renderer, clock, controls, lock_controls;
+init();
 function init() {
-  const overlay = document.getElementById("overlay");
-  overlay.remove();
   scene = new THREE.Scene();
+  let audioLoader = new THREE.AudioLoader();
+  audioLoader.load("./sounds/game_plane.mp4", function (buffer) {
+    sound.setBuffer(buffer);
+    sound.setLoop(true);
+    sound.setVolume(0.5);
+  });
   const container = document.createElement("div");
   document.body.appendChild(container);
   clock = new THREE.Clock();
@@ -22,10 +23,26 @@ function init() {
     1,
     1000
   );
-  // controls = new PointerLockControls(camera, document.body);
-  // scene.add(new THREE.AxesHelper(20));
+  lock_controls = new PointerLockControls(camera, document.body);
 
-  //
+  const blocker = document.getElementById("blocker");
+  const instructions = document.getElementById("instructions");
+
+  instructions.addEventListener("click", function () {
+    lock_controls.lock();
+  });
+
+  lock_controls.addEventListener("lock", function () {
+    instructions.style.display = "none";
+    blocker.style.display = "none";
+    sound.play();
+  });
+
+  lock_controls.addEventListener("unlock", function () {
+    blocker.style.display = "block";
+    instructions.style.display = "";
+    sound.stop();
+  });
   new EXRLoader()
     .setPath("./textures/")
     .load("new_home.exr", function (texture) {
@@ -188,13 +205,7 @@ function init() {
   const sound = new THREE.Audio(listener);
 
   // load a sound and set it as the Audio object's buffer
-  const audioLoader = new THREE.AudioLoader();
-  audioLoader.load("./sounds/game_plane.mp4", function (buffer) {
-    sound.setBuffer(buffer);
-    sound.setLoop(true);
-    sound.setVolume(0.5);
-    sound.play();
-  });
+
   animate();
 }
 
