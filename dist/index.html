@@ -8,6 +8,9 @@
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
     <link type="text/css" rel="stylesheet" href="./css/main.css" />
+    <script src="//cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/ColladaLoader.js"></script>
     <style>
       #blocker {
         position: absolute;
@@ -31,7 +34,9 @@
       }
     </style>
   </head>
-
+  <section id="loading-screen">
+    <div id="loader"></div>
+  </section>
   <body>
     <div id="blocker">
       <div id="instructions">
