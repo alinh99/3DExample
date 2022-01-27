@@ -1,7 +1,6 @@
 {
   "name": "3dexample",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "abbrev": "^1.1.1",
@@ -403,5 +402,6 @@
   "bugs": {
     "url": "https://github.com/alinh99/3DExample/issues"
   },
-  "homepage": "https://github.com/alinh99/3DExample#readme"
+  "homepage": "https://github.com/alinh99/3DExample#readme",
+  "description": ""
 }
