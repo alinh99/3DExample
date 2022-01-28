@@ -4,7 +4,9 @@ import { OrbitControls } from "./js/OrbitControls.js";
 import { GLTFLoader } from "./js/GLTFLoader.js";
 import { EXRLoader } from "./js/EXRLoader.js";
 import { PointerLockControls } from "./js/PointerLockControls.js";
+
 let camera, scene, renderer, clock, controls, lock_controls;
+
 init();
 animate();
 
