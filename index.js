@@ -6,8 +6,8 @@ import { EXRLoader } from "./js/EXRLoader.js";
 import { PointerLockControls } from "./js/PointerLockControls.js";
 let camera, scene, renderer, clock, controls, lock_controls;
 init();
-
 animate();
+
 function init() {
   //initialize the manager to handle all loaded events (currently just works for OBJ and image files)
   const loadingManager = new THREE.LoadingManager(() => {
@@ -17,13 +17,16 @@ function init() {
     // optional: remove loader from DOM via event listener
     loadingScreen.addEventListener("transitionend", onTransitionEnd);
   });
+
   scene = new THREE.Scene();
+  
   let audioLoader = new THREE.AudioLoader();
   audioLoader.load("./sounds/game_plane.mp4", function (buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.setVolume(0.5);
   });
+  
   const container = document.createElement("div");
   document.body.appendChild(container);
   clock = new THREE.Clock();
