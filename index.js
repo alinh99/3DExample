@@ -38,6 +38,7 @@ function init() {
     1,
     1000
   );
+  
   lock_controls = new PointerLockControls(camera, document.body);
 
   const blocker = document.getElementById("blocker");
