@@ -154,7 +154,6 @@ function init() {
         break;
     }
   };
-
   document.addEventListener("keydown", onKeyDown);
 
   let airport = new GLTFLoader(loadingManager).setPath("./models/airport/");
