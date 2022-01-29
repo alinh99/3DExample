@@ -4,7 +4,9 @@ import { OrbitControls } from "./js/OrbitControls.js";
 import { GLTFLoader } from "./js/GLTFLoader.js";
 import { EXRLoader } from "./js/EXRLoader.js";
 import { PointerLockControls } from "./js/PointerLockControls.js";
+
 let camera, scene, renderer, clock, controls, lock_controls;
+
 init();
 animate();
 
@@ -19,14 +21,14 @@ function init() {
   });
 
   scene = new THREE.Scene();
-  
+
   let audioLoader = new THREE.AudioLoader();
   audioLoader.load("./sounds/game_plane.mp4", function (buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.setVolume(0.5);
   });
-  
+
   const container = document.createElement("div");
   document.body.appendChild(container);
   clock = new THREE.Clock();
@@ -72,7 +74,6 @@ function init() {
   plane.load("F-106A.gltf", function (gltf) {
     plane = gltf.scene;
     plane.scale.set(0.1, 0.1, 0.1);
-    //plane.position.y = -3;
     plane.position.z = 13;
     plane.position.x = -0.01;
     plane.rotation.y = -3.15;
@@ -92,6 +93,7 @@ function init() {
       case "ArrowLeft":
       case "KeyA":
         plane.position.x += -0.02;
+        plane.rotation.z = -0.5;
         camera.position.x += -0.02;
         camera.lookAt(plane.position);
         break;
@@ -106,20 +108,27 @@ function init() {
       case "ArrowRight":
       case "KeyD":
         plane.position.x += 0.02;
+        plane.rotation.z = 0.5;
         camera.position.x += 0.02;
         camera.lookAt(plane.position);
         break;
 
       case "KeyF":
         plane.position.y += 0.02;
-        camera.position.y = 20;
-        camera.position.y += plane.position.y;
+        camera.position.y += 0.02;
+        camera.position.z += 0.02;
+        plane.rotation.x = 0.3;
         camera.lookAt(plane.position);
+        break;
+
+      case "KeyB":
+        plane.rotation.x = 0;
         break;
 
       case "KeyV":
         plane.position.y += -0.02;
         camera.position.y += -0.02;
+        plane.rotation.x = -0.3;
         camera.lookAt(plane.position);
         break;
 
