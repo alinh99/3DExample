@@ -38,7 +38,7 @@ function init() {
     1,
     1000
   );
-  
+
   lock_controls = new PointerLockControls(camera, document.body);
 
   const blocker = document.getElementById("blocker");
@@ -124,6 +124,8 @@ function init() {
 
       case "KeyB":
         plane.rotation.x = 0;
+        plane.rotation.y = -3.15;
+        plane.rotation.z = 0;
         break;
 
       case "KeyV":
