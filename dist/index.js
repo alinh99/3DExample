@@ -126,6 +126,7 @@ function init() {
         plane.rotation.x = 0;
         plane.rotation.y = -3.15;
         plane.rotation.z = 0;
+        camera.lookAt(plane.position);
         break;
 
       case "KeyV":
